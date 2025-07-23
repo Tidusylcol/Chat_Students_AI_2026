@@ -23,7 +23,17 @@ app.post('/api/chat', async (req, res) => {
     });
 
     const data = await response.json();
-    const aiResponse = data[0]?.generated_text || "Je n'ai pas compris.";
+
+if (data.error) {
+  console.error("Erreur HF:", data.error);
+  return res.json({ reply: "Le modèle est en cours de chargement. Réessayez dans quelques instants." });
+}
+
+const aiResponse = Array.isArray(data) && data[0]?.generated_text
+  ? data[0].generated_text
+  : "Je n'ai pas reçu de réponse claire.";
+
+res.json({ reply: aiResponse });
 
     res.json({ reply: aiResponse });
   } catch (error) {
