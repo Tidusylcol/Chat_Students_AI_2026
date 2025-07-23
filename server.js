@@ -34,5 +34,5 @@ app.post('/api/chat', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(\`Serveur lancé sur le port \${PORT}\`);
+ console.log(`Serveur lancé sur le port ${PORT}`);
 });
